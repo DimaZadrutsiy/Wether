@@ -7,6 +7,7 @@ import org.testng.annotations.Test;
 
 public class DimaZadrutsiyTest {
 
+//    This code is testing
 
     //TC_1_1  - Тест кейс:
     //1. Открыть страницу https://openweathermap.org/
