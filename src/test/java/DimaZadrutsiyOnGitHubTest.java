@@ -23,18 +23,16 @@ public class DimaZadrutsiyOnGitHubTest {
 
         driver.get(url);
         Thread.sleep(5000);
-        WebElement clickOnAnElementGuide = driver.findElement(By.xpath("//div[@id='desktop-menu']//li/" + "a[text()='Guide']"));
+        WebElement clickOnAnElementGuide = driver.findElement(By.xpath(
+                "//div[@id='desktop-menu']//li/a[text()='Guide']"));
         clickOnAnElementGuide.click();
 
 
         String actualResult = driver.getTitle();
-
         String actualResult2 = driver.getCurrentUrl();
 
         Assert.assertEquals(actualResult, expectedResult);
-
         Assert.assertEquals(actualResult2, expectedResult2);
-
 
         driver.quit();
     }
@@ -51,19 +49,22 @@ public class DimaZadrutsiyOnGitHubTest {
 
         String url = "https://openweathermap.org/";
 
-        String expectedResult = "true";
+        String expectedResult = "F";
+//        String expectedResult = "true";
 
         driver.get(url);
 
         Thread.sleep(5000);
-        WebElement changeCelsiusToFahrenheit = driver.findElement(By.xpath("//" + "div[@id='weather-widget']//div[text()='Imperial: °F, mph']"));
+        WebElement changeCelsiusToFahrenheit = driver.findElement(By.xpath(
+                "//div[@id='weather-widget']//div[text()='Imperial: °F, mph']"));
         changeCelsiusToFahrenheit.click();
 
         Thread.sleep(2000);
-        WebElement confirmCityTemperatureFahrenheit = driver.findElement(By.xpath("//" + "div[@class='section-content']//span[@class='heading']"));
+        WebElement confirmCityTemperatureFahrenheit = driver.findElement(By.xpath(
+                "//div[@class='section-content']//span[@class='heading']"));
 
-//        String actualResult = String.valueOf(confirmCityTemperatureFahrenheit.getText().charAt(3));
-        String actualResult = String.valueOf(confirmCityTemperatureFahrenheit.getText().contains("F"));
+        String actualResult = confirmCityTemperatureFahrenheit.getText().substring(confirmCityTemperatureFahrenheit.getText().length() - 1);
+//        String actualResult = String.valueOf(confirmCityTemperatureFahrenheit.getText().contains("F"));
 
         Assert.assertEquals(actualResult, expectedResult);
 
@@ -84,7 +85,9 @@ public class DimaZadrutsiyOnGitHubTest {
 
         String url = "https://openweathermap.org/";
 
-        String expectedResult = "We use cookies which are essential for the site to work. We also use non-essential " + "cookies to help us improve our services. Any data collected is anonymised. You can allow all " + "cookies or manage them individually.";
+        String expectedResult = "We use cookies which are essential for the site to work. We also use non-essential "
+                + "cookies to help us improve our services. Any data collected is anonymised. You can allow all "
+                + "cookies or manage them individually.";
         String expectedResult1 = "Allow all";
         String expectedResult2 = "Manage cookies";
 
@@ -97,12 +100,14 @@ public class DimaZadrutsiyOnGitHubTest {
 
         Assert.assertEquals(actualResult, expectedResult);
 
-        WebElement buttonAllowAll = driver.findElement(By.xpath("//div[@id = 'stick-footer-panel']" + "//button[text()='Allow all']"));
+        WebElement buttonAllowAll = driver.findElement(By.xpath(
+                "//div[@id = 'stick-footer-panel']//button[text()='Allow all']"));
         String actualResult1 = buttonAllowAll.getText();
 
         Assert.assertEquals(actualResult1, expectedResult1);
 
-        WebElement linkManageCookies = driver.findElement(By.xpath("//div[@id = 'stick-footer-panel']" + "//a[text()=' Manage cookies ']"));
+        WebElement linkManageCookies = driver.findElement(By.xpath(
+                "//div[@id = 'stick-footer-panel']//a[text()=' Manage cookies ']"));
         String actualResult2 = linkManageCookies.getText();
 
         Assert.assertEquals(actualResult2, expectedResult2);
@@ -124,6 +129,7 @@ public class DimaZadrutsiyOnGitHubTest {
         String expectedResult = "FAQ";
         String expectedResult1 = "How to start";
         String expectedResult2 = "Ask a question";
+        int expectedResult3 = 3;
 
         driver.get(url);
 
@@ -134,19 +140,25 @@ public class DimaZadrutsiyOnGitHubTest {
 
         clickOnSupport.click();
 
-        WebElement availabilitySubmenu_FAQ = driver.findElement(By.xpath("//ul[@id='support-dropdown-menu']" + "//a[@href='/faq']"));
+        Assert.assertEquals(driver.findElements(By.xpath("//ul[@id='support-dropdown-menu']//li")).size(),
+                3, expectedResult3);
+
+        WebElement availabilitySubmenu_FAQ = driver.findElement(By.xpath(
+                "//ul[@id='support-dropdown-menu']//a[@href='/faq']"));
 
         String actualResult = availabilitySubmenu_FAQ.getText();
 
         Assert.assertEquals(actualResult, expectedResult);
 
-        WebElement availabilitySubmenu_HowToStart = driver.findElement(By.xpath("//" + "ul[@id='support-dropdown-menu']//a[@href='/appid']"));
+        WebElement availabilitySubmenu_HowToStart = driver.findElement(By.xpath(
+                "//ul[@id='support-dropdown-menu']//a[@href='/appid']"));
 
         String actualResult1 = availabilitySubmenu_HowToStart.getText();
 
         Assert.assertEquals(actualResult1, expectedResult1);
 
-        WebElement availabilitySubmenu_AskAQuestion = driver.findElement(By.xpath("//" + "ul[@id='support-dropdown-menu']//a[@href='https://home.openweathermap.org/questions']"));
+        WebElement availabilitySubmenu_AskAQuestion = driver.findElement(By.xpath(
+                "//ul[@id='support-dropdown-menu']//a[@href='https://home.openweathermap.org/questions']"));
 
         String actualResult2 = availabilitySubmenu_AskAQuestion.getText();
 
@@ -187,7 +199,8 @@ public class DimaZadrutsiyOnGitHubTest {
 
         String originalWindow = driver.getWindowHandle();
 
-        WebElement selectSubmenu_AskAQuestion = driver.findElement(By.xpath("//" + "ul[@id='support-dropdown-menu']//a[@href='https://home.openweathermap.org/questions']"));
+        WebElement selectSubmenu_AskAQuestion = driver.findElement(By.xpath(
+                "//ul[@id='support-dropdown-menu']//a[@href='https://home.openweathermap.org/questions']"));
         selectSubmenu_AskAQuestion.click();
 
         Thread.sleep(3000);
@@ -198,20 +211,24 @@ public class DimaZadrutsiyOnGitHubTest {
             }
         }
 
-        WebElement enterEmail = driver.findElement(By.xpath("//input[@class='form-control string email " + "required']"));
+        WebElement enterEmail = driver.findElement(By.xpath(
+                "//input[@class='form-control string email required']"));
         enterEmail.click();
         enterEmail.sendKeys(email);
 
-        WebElement enterSubject = driver.findElement(By.xpath("//select[@class='form-control select " + "required']"));
+        WebElement enterSubject = driver.findElement(By.xpath(
+                "//select[@class='form-control select required']"));
         enterSubject.click();
         enterSubject.sendKeys(subject);
 
-        WebElement enterMessage = driver.findElement(By.xpath("//textarea[@class='form-control text " + "required']"));
+        WebElement enterMessage = driver.findElement(By.xpath(
+                "//textarea[@class='form-control text required']"));
         enterMessage.click();
         enterMessage.sendKeys(message);
         Thread.sleep(2000);
 
-        WebElement pressSubmit = driver.findElement(By.xpath("//input[@data-disable-with='Create Question " + "form']"));
+        WebElement pressSubmit = driver.findElement(By.xpath(
+                "//input[@data-disable-with='Create Question form']"));
         pressSubmit.click();
 
         WebElement confirmErrorCaptcha = driver.findElement(By.xpath("//div[@class='help-block']"));
@@ -254,11 +271,12 @@ public class DimaZadrutsiyOnGitHubTest {
         clickOnSupport.click();
 
         String originalWindow = driver.getWindowHandle();
-        Thread.sleep(5000);
-        WebElement selectSubmenu_AskAQuestion = driver.findElement(By.xpath("//" + "ul[@id='support-dropdown-menu']//a[@href='https://home.openweathermap.org/questions']"));
+        Thread.sleep(4000);
+        WebElement selectSubmenu_AskAQuestion = driver.findElement(By.xpath(
+                "//ul[@id='support-dropdown-menu']//a[@href='https://home.openweathermap.org/questions']"));
         selectSubmenu_AskAQuestion.click();
 
-        Thread.sleep(3000);
+        Thread.sleep(4500);
 
         for (String windowHandle : driver.getWindowHandles()) {
             if (!originalWindow.contentEquals(windowHandle)) {
@@ -266,17 +284,19 @@ public class DimaZadrutsiyOnGitHubTest {
                 break;
             }
         }
-        Thread.sleep(4000);
+        Thread.sleep(3000);
 
-        WebElement enterSubject = driver.findElement(By.xpath("//select[@class='form-control select " + "required']"));
+        WebElement enterSubject = driver.findElement(By.xpath(
+                "//select[@class='form-control select required']"));
 
         enterSubject.click();
 
         enterSubject.sendKeys(subject);
 
-        Thread.sleep(5000);
+        Thread.sleep(4000);
 
-        WebElement enterMessage = driver.findElement(By.xpath("//textarea[@class='form-control text " + "required']"));
+        WebElement enterMessage = driver.findElement(By.xpath(
+                "//textarea[@class='form-control text required']"));
         enterMessage.click();
         enterMessage.sendKeys(message);
 
@@ -286,14 +306,17 @@ public class DimaZadrutsiyOnGitHubTest {
 
         driver.switchTo().frame(driver.findElement(By.cssSelector("iframe[title='reCAPTCHA']")));
 
-        WebElement enterCaptcha = driver.findElement(By.xpath("//span[@class='recaptcha-checkbox goog-" + "inline-block recaptcha-checkbox-unchecked rc-anchor-checkbox']"));
+        WebElement enterCaptcha = driver.findElement(By.xpath(
+                "//span[@class='recaptcha-checkbox goog-inline-block recaptcha-checkbox-unchecked "
+                        + "rc-anchor-checkbox']"));
         enterCaptcha.click();
 
-        Thread.sleep(15000);
+        Thread.sleep(10000);
 
         driver.switchTo().window(window2);
 
-        WebElement pressSubmit = driver.findElement(By.xpath("//input[@data-disable-with='Create Question " + "form']"));
+        WebElement pressSubmit = driver.findElement(By.xpath(
+                "//input[@data-disable-with='Create Question form']"));
         pressSubmit.click();
 
         WebElement confirmErrorEmail = driver.findElement(By.xpath("//span[@class='help-block']"));
@@ -328,23 +351,27 @@ public class DimaZadrutsiyOnGitHubTest {
         driver.get(url);
 
         Thread.sleep(5000);
-        WebElement changeCelsiusToFahrenheit = driver.findElement(By.xpath("//" + "div[@id='weather-widget']//div[text()='Imperial: °F, mph']"));
+        WebElement changeCelsiusToFahrenheit = driver.findElement(By.xpath(
+                "//div[@id='weather-widget']//div[text()='Imperial: °F, mph']"));
         changeCelsiusToFahrenheit.click();
 
         Thread.sleep(2000);
-        WebElement confirmCelsiusTemperatureFahrenheit = driver.findElement(By.xpath("//" + "div[@class='section-content']//span[@class='heading']"));
+        WebElement confirmCelsiusTemperatureFahrenheit = driver.findElement(By.xpath(
+                "//div[@class='section-content']//span[@class='heading']"));
 
 //        String actualResult = String.valueOf(confirmCelsiusTemperatureFahrenheit.getText().charAt(3));
         String actualResult = String.valueOf(confirmCelsiusTemperatureFahrenheit.getText().contains("F"));
 
         Assert.assertEquals(actualResult, expectedResult);
 
-        WebElement changeFahrenheitToCelsius = driver.findElement(By.xpath("//" + "div[@id='weather-widget']//div[text()='Metric: °C, m/s']"));
+        WebElement changeFahrenheitToCelsius = driver.findElement(By.xpath(
+                "//div[@id='weather-widget']//div[text()='Metric: °C, m/s']"));
         changeFahrenheitToCelsius.click();
 
         Thread.sleep(2000);
 
-        WebElement confirmFahrenheitTemperatureOnCelsius = driver.findElement(By.xpath("//" + "div[@class='section-content']//span[@class='heading']"));
+        WebElement confirmFahrenheitTemperatureOnCelsius = driver.findElement(By.xpath(
+                "//div[@class='section-content']//span[@class='heading']"));
 
 //        String actualResult2 = String.valueOf(confirmFahrenheitTemperatureOnCelsius.getText().charAt(2));
         String actualResult2 = String.valueOf(confirmFahrenheitTemperatureOnCelsius.getText().contains("C"));
@@ -375,7 +402,8 @@ public class DimaZadrutsiyOnGitHubTest {
 
         Thread.sleep(5000);
 
-        WebElement clickOnTheLogo = driver.findElement(By.xpath("//" + "a[@href='/']/img[@src='/themes/openweathermap/assets/img/logo_white_cropped.png']"));
+        WebElement clickOnTheLogo = driver.findElement(By.xpath(
+                "//a[@href='/']/img[@src='/themes/openweathermap/assets/img/logo_white_cropped.png']"));
         clickOnTheLogo.click();
 
         String actualResult = driver.getCurrentUrl();
@@ -451,6 +479,7 @@ public class DimaZadrutsiyOnGitHubTest {
         linkAPI.click();
 
         int actualResult = driver.findElements(By.xpath("//a[contains(@class, 'orange')]")).size();
+//        //a[contains(@class, 'btn_block orange round') or contains(@class, 'ow-btn round btn-orange')]
 
         Assert.assertEquals(actualResult, expectedResult);
 
